@@ -33,7 +33,17 @@
 
 */
 
-const forLoopTry1 = (text = '', repetitions = 1) => {};
+const forLoopTry1 = (text = '', repetitions = 1) => {
+  let result = '';
+  if (repetitions <= 0) {
+    return result;
+  }
+
+  for (let i = 0; i < repetitions; i++) {
+    result += text;
+  }
+  return result;
+};
 
 // =============== a for-of loop to control which solution(s) are tested ===============
 

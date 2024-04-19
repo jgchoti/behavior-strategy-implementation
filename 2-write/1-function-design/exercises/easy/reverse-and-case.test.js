@@ -13,7 +13,30 @@
 
 // -------- your solutions --------
 
-for (const solution of [secretSolution]) {
+const reverseAndCase = (text = '', lowerCase = true) => {
+  let reversedText = text.split('').reverse().join('');
+  return lowerCase === true
+    ? reversedText.toLowerCase()
+    : reversedText.toUpperCase();
+};
+
+const reverseAndCase2 = (text = '', lowerCase = true) => {
+  let reversedText = '';
+  let txtArray = text.split('')
+  for(let i = 0; i < txtArray.length; i++){
+    reversedText = txtArray[i] + reversedText
+  }
+  return lowerCase === true
+    ? reversedText.toLowerCase()
+    : reversedText.toUpperCase();
+};
+
+
+for (const solution of [
+  // reverseAndCase,
+  reverseAndCase2,
+  // secretSolution
+]) {
   describe(
     solution.name + ': reverses a string then sets to lower or upper case',
     () => {
@@ -28,24 +51,59 @@ for (const solution of [secretSolution]) {
       // write the tests indicated by the comments
       describe('when set to lower case', () => {
         // when the text is an empty string
-        it(_, () => {
-          expect(solution(_, _)).toEqual(_);
+        it('text is an empty string', () => {
+          expect(solution('', true)).toEqual('');
         });
         // when the text is all upper case
+        it('text is all upper case', () => {
+          expect(solution('ABCDEF', true)).toEqual('fedcba');
+        });
         // when the text is all lower case
+        it('text is all lower case', () => {
+          expect(solution('hello', true)).toEqual('olleh');
+        });
         // when the text is mixed upper and lower case
+        it('text is mixed upper and lower case', () => {
+          expect(solution('HEllo', true)).toEqual('olleh');
+        });
         // when the text contains punctuation
+        it('text contains punctuation', () => {
+          expect(solution('Question Mark ( ? )', true)).toEqual(
+            ') ? ( kram noitseuq',
+          );
+        });
         // when the text contains numbers
+        it('text contains numbers', () => {
+          expect(solution('H3110', true)).toEqual('0113h');
+        });
       });
       describe('when set to upper case', () => {
         // when the text is an empty string
-        // when the text is all upper case
+        it('text is an empty string', () => {
+          expect(solution('', false)).toEqual('');
+        });
+        it('text is all upper case', () => {
+          expect(solution('ABCDEF', false)).toEqual('FEDCBA');
+        });
         // when the text is all lower case
+        it('text is all lower case', () => {
+          expect(solution('hello', false)).toEqual('OLLEH');
+        });
         // when the text is mixed upper and lower case
+        it('text is mixed upper and lower case', () => {
+          expect(solution('HEllo', false)).toEqual('OLLEH');
+        });
         // when the text contains punctuation
-        // when the text contains numbers
+        it('text contains punctuation', () => {
+          expect(solution('Question Mark ( ? )', false)).toEqual(
+            ') ? ( KRAM NOITSEUQ',
+          );
+        });
+        it('text contains numbers', () => {
+          expect(solution('H3110', false)).toEqual('0113H');
+        });
       });
-    }
+    },
   );
 }
 

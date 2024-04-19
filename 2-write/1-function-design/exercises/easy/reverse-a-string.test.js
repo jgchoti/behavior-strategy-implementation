@@ -10,7 +10,24 @@
 
 // -------- your solutions --------
 
-for (const solution of [secretSolution]) {
+const reverseString = (toReverse='') => {
+ let result = ''
+ let toReverseArray = toReverse.split('')
+ for (let i = 0; i < toReverseArray.length; i++){
+   result = toReverseArray[i] + result
+ }
+return result
+}
+
+const reverseString2 = (toReverse='') => {
+ return toReverse.split('').reverse().join('')
+}
+
+for (const solution of [
+  // reverseString, 
+    reverseString2,
+  // secretSolution
+  ]) {
   // the main test suite for the function
   describe(solution.name + ': reverses a string', () => {
     it('default parameter is an empty string -> ""', () => {
@@ -23,6 +40,23 @@ for (const solution of [secretSolution]) {
       expect(solution('ASDF')).toEqual('FDSA');
     });
     // write at least 5 more tests ...
+     it('a string with capital letters and lowercase letters', () => {
+      expect(solution('AbCdEfG')).toEqual('GfEdCbA');
+    });
+    it('a string with space in between', () => {
+      expect(solution('A B C ')).toEqual(' C B A');
+    });
+    it('a string with numbers', () => {
+      expect(solution('A2b3')).toEqual('3b2A');
+    });
+    it('a string with special charecters', () => {
+      expect(solution('a?\"')).toEqual('"\?a');
+    });
+    it('a long sentences', () => {
+      expect(solution('repeated is declared and returnd, but never modified')).toEqual('deifidom reven tub ,dnruter dna deralced si detaeper');
+    });
+    it('TypeError', () => 
+    expect (() => {solution(-5)}).toThrow(TypeError));
   });
 }
 
