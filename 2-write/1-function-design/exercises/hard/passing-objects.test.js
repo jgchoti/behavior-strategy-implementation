@@ -11,21 +11,45 @@
  */
 
 // -------- your solutions --------
+const passingObj = (arr) => {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (Object.keys(arr[i]).includes('pass') && arr[i]['pass'] === true) {
+     result.push({ pass: true })
+   }}
+    return result;
+  }
 
-for (const solution of [secretSolution]) {
+// Object.keys(arr[i]) returns an array of keys, so you can't directly compare it to a string like 'pass'. 
+// You should check if 'pass' is among the keys using the includes() method.
+
+// Object.values(arr[i]) returns an array of values, not a single value. You should access the value of the 'pass' key directly.
+
+
+const passingObj2 = (arr) => {
+  return arr.filter(obj => obj.hasOwnProperty('pass') && obj.pass === true)
+            .map(x => ({ pass: true }));
+};
+
+
+for (const solution of [
+  passingObj,
+  passingObj2,
+  // secretSolution
+]) {
   describe(solution.name + ': filters out non-passing objects', () => {
     describe('correctly filters an array', () => {
       it('an empty array returns an empty array', () => {
-        const actual = solution(_);
-        expect(_).toEqual(_);
+        const actual = solution([]);
+        expect(actual).toEqual([]);
       });
       it('keeps all entries when all are passing', () => {
-        const actual = solution([{ pass: _ }, { pass: _ }]);
+        const actual = solution([{ pass: true }, { pass: true }]);
         expect(actual).toEqual([{ pass: true }, { pass: true }]);
       });
       it('removes all entries when all are not passing', () => {
-        const actual = solution([{ pass: _ }, { pass: _ }]);
-        expect(actual).toEqual(_);
+        const actual = solution([{ pass: 'hi' }, { pass: false }]);
+        expect(actual).toEqual([]);
       });
       it('removes only not-passing entries', () => {
         const actual = solution([
@@ -33,20 +57,24 @@ for (const solution of [secretSolution]) {
           { pass: false },
           { pass: true },
         ]);
-        expect(actual).toEqual([{ _: _ }, { _: _ }]);
+        expect(actual).toEqual([{ pass: true }, { pass: true }]);
       });
       it('removes entries with a truthy, but not true, .pass value', () => {
-        const actual = solution([{ pass: 100 }, { pass: 'hello' }, { _: _ }]);
+        const actual = solution([
+          { pass: 100 },
+          { pass: 'hello' },
+          { pass: true },
+        ]);
         expect(actual).toEqual([{ pass: true }]);
       });
       it('removes entries with no .pass property', () => {
         const actual = solution([
-          { hello: _ },
-          { bye: _ },
-          { pass: _ },
-          { passing: _ },
+          { hello: false },
+          { bye: false },
+          { pass: true },
+          { passing: false },
         ]);
-        expect(actual)._.deep._([{ pass: true }]);
+        expect(actual).toEqual([{ pass: true }]);
       });
     });
     describe('does not modify the argument', () => {
@@ -59,7 +87,11 @@ for (const solution of [secretSolution]) {
       it('does not modify the argument', () => {
         const arg = [{ pass: true }, { pass: false }, { hello: 'good bye' }];
         solution(arg);
-        expect(arg).toEqual([{ _: _ }, { _: _ }, { _: _ }]);
+        expect(arg).toEqual([
+          { pass: true },
+          { pass: false },
+          { hello: 'good bye' },
+        ]);
       });
     });
   });

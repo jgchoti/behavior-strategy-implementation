@@ -14,12 +14,41 @@
 
 // -------- your solutions --------
 
-for (const solution of [secretSolution]) {
-  describe(solution.name + ': _', () => {
-    describe('_', () => {
-      it('_', () => {});
-    });
-  });
+const numbery = (arrayOfStrings) => {
+  let numberArray = arrayOfStrings.map(Number);
+  return numberArray.filter((num) => !isNaN(num));
+};
+
+
+
+
+for (const solution of [
+  numbery,
+  // secretSolution
+]) {
+  describe(
+    solution.name +
+      ': takes an array of strings and returns a new array of numbers',
+    () => {
+      describe('returns an array containing only numbers, and not NaN', () => {
+        it("['1', '2', 'e', '.'] --> [1, 2]", () => {
+          expect(solution(['1', '2', 'e', '.'])).toEqual([1, 2]);
+        });
+        it('does not modify the original array', () => {
+          const input = ['1', '2', 'e', '.'];
+          expect(input).toEqual(['1', '2', 'e', '.']);
+        });
+        it('works with an empty array', () => {
+          const input = [];
+          expect(solution(input)).toEqual([]);
+        });
+        it('works with an array containing only non-numbery strings', () => {
+          const input = ['1', '2', 'a', '3', 'b'];
+          expect(solution(input)).toEqual([1, 2, 3]);
+        });
+      });
+    },
+  );
 }
 
 // minified solution for testing your tests
