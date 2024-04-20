@@ -18,4 +18,23 @@
  *
  * sortDigits(2321, false); // 3221
  */
-export const sortDigits = (toSort = 0, up = true) => {};
+export const sortDigits = (toSort = 0, up = true) => {
+let arrayNum = String(toSort).split('').map(Number)
+if (up === true) {
+  return Number(arrayNum.sort((a,b) => a - b).join(''))
+} else {
+  return Number(arrayNum.sort((a,b) => b - a).join(''))
+}
+};
+
+export const sortDigits2 = (toSort = 0, up = true) => {
+  const digits = Array.from(String(toSort), Number);
+
+  if (up) {
+    digits.sort((a, b) => a - b);
+  } else {
+    digits.sort((a, b) => b - a);
+  }
+
+  return parseInt(digits.join(''));
+};

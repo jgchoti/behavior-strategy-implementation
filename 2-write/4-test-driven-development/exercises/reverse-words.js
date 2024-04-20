@@ -12,4 +12,17 @@
  *
  * reverseWords('hello world!'); // 'olleh dlrow!'
  */
-export const reverseWords = (text = '') => {};
+export const reverseWords = (text = '') => {
+  let textArray = text.split(' ');
+  let result = [];
+  
+  for (let word of textArray) {
+     let reversedWord = '';
+    for (let char of word) {
+      reversedWord = char + reversedWord;
+    }
+    result.push(reversedWord);
+  }
+  return result.join(' ');
+};
+

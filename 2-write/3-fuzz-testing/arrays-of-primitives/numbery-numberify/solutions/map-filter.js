@@ -4,8 +4,8 @@ export const mapFilter = (arr) => {
   const castToNumber = (entry) => Number(entry);
 
   // fill in the array methods and which logic to use
-  const numbers = _._(_);
-  const allValidNumbers = _._(_);
+  const numbers = arr.map(castToNumber);
+  const allValidNumbers = numbers.filter(isNotNaN);
 
   return allValidNumbers;
 };

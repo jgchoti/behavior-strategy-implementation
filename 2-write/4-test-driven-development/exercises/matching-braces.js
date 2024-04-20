@@ -29,4 +29,37 @@
  * matchingBraces('()[]{}'); // true
  *
  */
-export const matchingBraces = (text = '') => {};
+export const matchingBraces = (text = '') => {
+  let matchingObj = { '(': ')', '{': '}', '[': ']' };
+  let isMatching = false;
+  let arr = text.split('');
+  for (let i = 0; i < arr.length; i++) {
+    if (
+      Object.keys(matchingObj).includes(arr[i]) &&
+      arr[i + 1] === matchingObj[arr[i]]
+    ) {
+      isMatching = true;
+    } else {
+      isMatching = false
+    }
+  }
+  return isMatching;
+};
+
+
+export const matchingBraces2 = (text = '') => {
+  const matchingObj = { '(': ')', '{': '}', '[': ']' };
+  const stack = [];
+  for (let char of text) {
+    if (char in matchingObj) {
+      stack.push(char);
+    } else {
+      const lastOpening = stack.pop();
+      if (matchingObj[lastOpening] !== char) {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0;
+};

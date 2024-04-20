@@ -6,19 +6,22 @@
  * @param {number[]} [b=[]] - The other array.
  * @returns {number[]} A new array with items not in both a and b.
  *
- * @example
- *
- * diffArrays([2], [1, 3]); // [3]
- *
- * @example
- *
- * diffArrays([2, NaN], [3, 1]); // [NaN, 3]
- *
- * @example
- *
- * diffArrays([2, 1], [3, 2]); // []
- * @example
- *
- * diffArrays([1, 2, 3], [4, 5]); // [1, 2, 3, 4, 5]
+ * arrayDiff([1, 8, 2], [])); // [1, 8, 2]
+ * arrayDiff([1, 2, 3], [1, 2])); // [3]
+ * arrayDiff([3, 4], [3])); // [4]
+ * arrayDiff([], [4, 5])); // []
  */
-export const diffArrays = (a = [], b = []) => {};
+export const diffArrays = (a = [], b = []) => {
+  let result = [];
+ for (let element of a) {
+    if (!b.includes(element)) {
+      result.push(element);
+    }
+  }
+  for (let element of b) {
+    if (!a.includes(element)) {
+      result.push(element);
+    }
+  }
+  return result;
+};

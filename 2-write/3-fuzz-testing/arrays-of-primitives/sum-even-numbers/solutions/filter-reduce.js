@@ -1,5 +1,5 @@
-export const filterReduce = (arr) =>
-  arr
-    .reverse()
-    .filter(e=>e) // keep the even numbers
-    .reduce(e=>e); // add all the even numbers
+export const filterReduce = (arr) => {
+  return arr
+    .filter((num) => num % 2 === 0) // keep the even numbers
+    .reduce((acc, cur) => acc + cur, 0); // add all the even numbers
+};

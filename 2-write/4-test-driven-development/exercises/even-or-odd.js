@@ -10,4 +10,6 @@
  *
  * evenOrOdd([1, 2]); // ['odd', 'even']
  */
-export const evenOrOdd = (nums = []) => {};
+export const evenOrOdd = (nums = []) => {
+  return nums.map(num => (num %2 === 0 ? 'even' : 'odd'))
+};

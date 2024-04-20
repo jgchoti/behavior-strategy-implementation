@@ -16,12 +16,33 @@
 // -------- your solutions --------
 
 const whileLoop = (max) => {
-  let countUp = _;
+// Initialize countUp to 0 to start counting from.
+// Initialize an empty array result to store the generated sequence.
+  let countUp = 0;
   const result = [];
-  while (_) {
-    const nextEntry = countUp % 15 === 0 ? '_' : _ ? 'buzz' : _ ? 'fizz' : _;
+
+// The while loop continues iterating as long as countUp is less than max.
+  while (countUp < max) {
+
+// Determine the next entry based on the current value of countUp.
+// If countUp is divisible by both 3 and 5 (i.e., divisible by 15), add 'fizzbuzz' to the result.
+// If countUp is divisible by 5 but not by 3, add 'buzz' to the result.
+// If countUp is divisible by 3 but not by 5, add 'fizz' to the result.
+// If countUp is not divisible by either 3 or 5, add countUp itself to the result.
+    const nextEntry =
+      countUp % 15 === 0
+        ? 'fizzbuzz'
+        : countUp % 5 === 0
+        ? 'buzz'
+        : countUp % 3 === 0
+        ? 'fizz'
+        : countUp;
+    
     result.push(nextEntry);
+// Increment countUp by 1 in each iteration to move to the next number.
+    countUp++;
   }
+// Once the loop completes, return the generated result array.
   return result;
 };
 
@@ -29,8 +50,8 @@ const whileLoop = (max) => {
  */
 const oneLineforLoop = (max) => {
   const result = [];
-  for (let i = 0; i < _; )
-    result._((++i % _ ? '' : '_') + (i % _ ? '' : '_') || i);
+  for (let i = 0; i < max; i++)
+    result.push((i % 3 === 0 ? 'fizz' : '') + (i % 5 === 0 ? 'buzz' : '') || i);
   return result;
 
   // https://codeburst.io/javascript-breaking-down-the-shortest-possible-fizzbuzz-answer-94a0ad9d128a
@@ -39,25 +60,27 @@ const oneLineforLoop = (max) => {
 /* describe this solution's strategy
  */
 const manySmallFunctions = (max) => {
-  const threeDivides = (n) => n % _ === 0;
-  const fiveDivides = (n) => n % _ === 0;
-  const fifteenDivides = (n) => n % _ === 0;
+  const threeDivides = (n) => n % 3 === 0;
+  const fiveDivides = (n) => n % 5 === 0;
+  const fifteenDivides = (n) => n % 15 === 0;
 
   const fizzbuzzOrNumber = (num) => {
-    if (_) {
+    if (fifteenDivides(num)) {
       return 'fizzbuzz';
-    } else if (_) {
+    } else if (threeDivides(num)) {
       return 'fizz';
-    } else if (_) {
+    } else if (fiveDivides(num)) {
       return 'buzz';
     } else {
       return num;
     }
   };
 
+// Array.from({length: 10}, (_, i) => i + 1)
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   // https://stackoverflow.com/a/33352604
   const arrayOfIndexes = [...Array(max).keys()];
-  const fizzBuzzedArray = arrayOfIndexes.map(_);
+  const fizzBuzzedArray = arrayOfIndexes.map(fizzbuzzOrNumber);
   return fizzBuzzedArray;
 };
 
@@ -66,8 +89,8 @@ const manySmallFunctions = (max) => {
 for (const solution of [
   secretSolution,
   // whileLoop,
-  // oneLineforLoop,
-  // manySmallFunctions,
+  oneLineforLoop,
+  manySmallFunctions,
 ]) {
   describe(solution.name + ': fizzbuzz', () => {
     describe('numbers divisible by 3', () => {

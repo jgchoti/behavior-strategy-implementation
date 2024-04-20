@@ -11,10 +11,48 @@
 
 // -------- your solutions --------
 
-for (const solution of [secretSolution]) {
-  describe(solution.name + ': _', () => {
+const reverse = (arrayOfStrings) => {
+  return arrayOfStrings.reverse().join('')
+}
+
+const reverseForLoop = (arrayOfStrings) => {
+  let reverse = []
+  for ( let i = 0 ; i < arrayOfStrings.length; i++){
+    reverse.unshift(arrayOfStrings[i])
+  }
+return reverse.join('')
+}
+
+const reverseForLoop2 = (arrayOfStrings) => {
+  let reverse = [];
+  for (let i = arrayOfStrings.length - 1; i >= 0; i--) {
+    reverse.push(arrayOfStrings[i]);
+  }
+  return reverse;
+};
+
+
+
+for (const solution of [
+  reverse,
+  reverseForLoop,
+  reverseForLoop2,
+  // secretSolution
+  ]) {
+  describe(solution.name + ': takes an array of strings, reverses it, and combines the strings', () => {
     describe('_', () => {
-      it('_', () => {});
+      it('mix of strings', () => {
+        expect(solution(["tL2e4zBv", "7sGfn1J", "RpW9C63a", "yDzF8Lt", "kQ7p6nE"])).toEqual( "kQ7p6nEyDzF8LtRpW9C63a7sGfn1JtL2e4zBv")
+      });
+         it('empty array', () => {
+        expect(solution([])).toEqual( "")
+      });
+    });
+      describe('does not modify the original array', () => {
+      it('does not modify the original array', () => {
+        let input = ["tL2e4zBv", "7sGfn1J", "RpW9C63a", "yDzF8Lt", "kQ7p6nE"]
+        expect(input).toEqual(["tL2e4zBv", "7sGfn1J", "RpW9C63a", "yDzF8Lt", "kQ7p6nE"])
+      });
     });
   });
 }

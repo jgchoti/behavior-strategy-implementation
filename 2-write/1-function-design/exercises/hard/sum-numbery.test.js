@@ -19,22 +19,42 @@ const mapFilterReduce = (arr) => {
   const castToNumber = (entry) => Number(entry);
 
   // fill in the array methods and pass in the correct logic
-  const sumOfNumberies = arr._(_)._(_)._(_, _);
+  const sumOfNumberies = arr
+    .map(castToNumber)
+    .filter(isNotNaN)
+    .reduce(sumNumbers, 0);
 
   return sumOfNumberies;
 };
 
 // -------- your solutions --------
 
-for (const solution of [
-  secretSolution,
-  // mapFilterReduce,
-]) {
-  describe(solution.name + ': _', () => {
-    describe('_', () => {
-      it('_', () => {});
-    });
-  });
+for (const solution of [secretSolution, mapFilterReduce]) {
+  describe(
+    solution.name + ': sums all numbery strings in an array of strings',
+    () => {
+      describe('an array of strings', () => {
+        it("['a','b', '3','5'] => 8", () => {
+          expect(solution(['a', 'b', '3', '5'])).toEqual(8);
+        });
+        it('[] => 0', () => {
+          expect(solution([])).toEqual(0);
+        });
+        it("[''] => 0", () => {
+          expect(solution([''])).toEqual(0);
+        });
+        it("['1.9','3.9','diofpwjeorp[jfgfo']] => 0", () => {
+          expect(solution(['1.9', '3.9', 'diofpwjeorp[jfgfo'])).toEqual(5.8);
+        });
+      });
+      describe('it does not modify the original array (no side-effects)', () => {
+        it('does not modify the original array', () => {
+          let input = ['a', 'b', '3', '5'];
+          expect(input).toEqual(['a', 'b', '3', '5']);
+        });
+      });
+    },
+  );
 }
 
 // minified solution for testing your tests
